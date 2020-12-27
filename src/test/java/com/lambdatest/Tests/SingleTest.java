@@ -53,7 +53,7 @@ public class SingleTest {
 	@Test
 	public void test() throws InterruptedException {
 
-		// Launch the apppp
+		// Launch the app
 		driver.get("https://www.lambdatest.com/automation-demos/");
 
 		// Enter the username
@@ -99,20 +99,6 @@ public class SingleTest {
 ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
 driver.switchTo().window(tabs.get(1));
 driver.get("https://www.lambdatest.com/selenium-automation");
-
-
-        
-
-
-		// // Add new item is list
-		// driver.findElement(By.id("sampletodotext")).clear();
-		// driver.findElement(By.id("sampletodotext")).sendKeys("Yey, Let's add it to list");
-		// driver.findElement(By.id("addbutton")).click();
-
-		// // Verify Added item
-		// String item = driver.findElement(By.xpath("/html/body/div/div/div/ul/li[6]/span")).getText();
-		// Assert.assertTrue(item.contains("Yey, Let's add it to list"));
-		// status = "passed";
 
 	}
 
