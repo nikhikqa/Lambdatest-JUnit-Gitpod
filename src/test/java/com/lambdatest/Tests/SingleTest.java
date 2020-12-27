@@ -1,6 +1,10 @@
 package com.lambdatest.Tests;
 
 import java.net.URL;
+import java.security.Key;
+import java.util.ArrayList;
+
+import org.openqa.selenium.Keys;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -8,10 +12,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.Select;
 
 
 public class SingleTest {
@@ -44,26 +51,68 @@ public class SingleTest {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws InterruptedException {
 
-		// Launch the app
-		driver.get("https://lambdatest.github.io/sample-todo-app/");
+		// Launch the apppp
+		driver.get("https://www.lambdatest.com/automation-demos/");
 
-		// Click on First Item
-		driver.findElement(By.name("li1")).click();
+		// Enter the username
+		driver.findElement(By.id("username")).sendKeys("lambda");
 
-		// Click on Second Item
-		driver.findElement(By.name("li2")).click();
+		// Enter the password
+        driver.findElement(By.id("password")).sendKeys("lambda123");
 
-		// Add new item is list
-		driver.findElement(By.id("sampletodotext")).clear();
-		driver.findElement(By.id("sampletodotext")).sendKeys("Yey, Let's add it to list");
-		driver.findElement(By.id("addbutton")).click();
+        // Click on Login button
+        WebElement lgnbtn=driver.findElement(By.xpath("//button[@class='applynow']"));
+        lgnbtn.sendKeys(Keys.ENTER);   
+    
 
-		// Verify Added item
-		String item = driver.findElement(By.xpath("/html/body/div/div/div/ul/li[6]/span")).getText();
-		Assert.assertTrue(item.contains("Yey, Let's add it to list"));
-		status = "passed";
+        // Enter email after getting logged in
+        driver.findElement(By.xpath("//input[@id='developer-name']")).sendKeys("qanikhil1993@gmail.com");
+
+        //Click on the Populate button
+        driver.findElement(By.xpath("//input[@id='populate']")).click();
+                
+        //Engage with the Popup
+        driver.switchTo().alert().accept();
+
+        //Click on the feedback#1
+        driver.findElement(By.id("month")).click();
+
+        //Click on the feedback#2
+        driver.findElement(By.id("customer-service")).click();
+
+        //Select the value from dropdown for the Payment mode
+        Select payment=new Select(driver.findElement(By.name("preferred-payment")));
+        payment.selectByIndex(2);
+
+        //Click on the I have made Checkbox option
+        driver.findElement(By.xpath("//input[@type='checkbox'][@id='tried-ecom']")).click();
+
+        // //Find the scale and click on the Rating==9
+        // JavascriptExecutor js1= (JavascriptExecutor) driver;
+        // WebElement slider= driver.findElement(By.xpath("//div[@id='slider']/span"));       
+        // js1.executeScript("argument[0].setAttribute('style', 'left: 88.8889%;')", slider);
+
+        //Open link in a new browser tab
+        ((JavascriptExecutor) driver).executeScript("window.open()");
+ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+driver.switchTo().window(tabs.get(1));
+driver.get("https://www.lambdatest.com/selenium-automation");
+
+
+        
+
+
+		// // Add new item is list
+		// driver.findElement(By.id("sampletodotext")).clear();
+		// driver.findElement(By.id("sampletodotext")).sendKeys("Yey, Let's add it to list");
+		// driver.findElement(By.id("addbutton")).click();
+
+		// // Verify Added item
+		// String item = driver.findElement(By.xpath("/html/body/div/div/div/ul/li[6]/span")).getText();
+		// Assert.assertTrue(item.contains("Yey, Let's add it to list"));
+		// status = "passed";
 
 	}
 
